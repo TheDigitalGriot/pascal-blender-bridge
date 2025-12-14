@@ -42,3 +42,81 @@ This addon makes that workflow seamless.
   - Place items in Pascal, update Blender scene automatically
 
 - **Catalog Integration** (Planned) — Access Pascal's item catalog from within Blender
+
+## Installation
+
+1. Download the latest release from the [Releases](../../releases) page
+2. In Blender, go to **Edit → Preferences → Add-ons**
+3. Click **Install** and select the downloaded `.zip` file
+4. Enable "Pascal Blender Bridge" in the addon list
+
+## Usage
+
+### Exporting to Pascal
+
+1. Set up your scene in Blender using the Pascal conventions:
+   - Use collections to define levels
+   - Name objects according to their Pascal node type (walls, rooms, items)
+2. Open the Pascal Bridge panel in the 3D Viewport sidebar (N-panel)
+3. Configure export settings
+4. Click **Export to Pascal**
+
+### Importing from Pascal
+
+1. In the Pascal Bridge panel, click **Import from Pascal**
+2. Select your Pascal scene JSON file
+3. The scene hierarchy will be reconstructed in Blender
+
+### Object Mapping
+
+| Blender | Pascal Node Type |
+|---------|------------------|
+| Collection | Level |
+| Cube (tagged) | Wall |
+| Empty | Room container |
+| Mesh objects | Item nodes |
+
+## Configuration
+
+The addon stores settings in a `.pascal-bridge.json` file in your project:
+
+```json
+{
+  "pascalEndpoint": "http://localhost:3000",
+  "autoSync": false,
+  "exportPath": "./scenes",
+  "catalogPath": "./catalog"
+}
+```
+
+## Roadmap
+
+- [x] Basic JSON export (scene → Pascal format)
+- [x] JSON import (Pascal → Blender)
+- [ ] WebSocket live sync
+- [ ] Pascal item catalog browser in Blender
+- [ ] Collision/blocker data export
+- [ ] Wall snapping preview in Blender
+- [ ] Multi-user sync support
+
+## Acknowledgments
+
+- Inspired by [LvlExporter](https://superhivemarket.com/products/lvl-exporter) — a Blender addon for exporting scene data to JSON/XML for code-focused 3D frameworks
+- Built for [Pascal](https://github.com/wawa-sensei/pascal) by [@wawasensei](https://twitter.com/waaborern)
+
+## Contributing
+
+Contributions welcome! This project is in early development. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+Areas where help is especially appreciated:
+- WebSocket sync implementation
+- Testing with complex scenes
+- Documentation and examples
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+**Note:** This addon is a community project and is not officially affiliated with Pascal.
