@@ -1,0 +1,20 @@
+# Development notes (RPIV workflow)
+thoughts/
+
+# Claude Code project file
+CLAUDE.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Blender
+*.blend1
+*.blend2
+
+# Build artifacts
+*.zip
+dist/
+build/

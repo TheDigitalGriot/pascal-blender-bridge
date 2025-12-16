@@ -45,10 +45,32 @@ This addon makes that workflow seamless.
 
 ## Installation
 
+### From Release (Recommended)
 1. Download the latest release from the [Releases](../../releases) page
 2. In Blender, go to **Edit → Preferences → Add-ons**
 3. Click **Install** and select the downloaded `.zip` file
 4. Enable "Pascal Blender Bridge" in the addon list
+
+### From Source
+1. Clone this repository
+2. Create a zip of the `pascal_blender_bridge/` folder:
+   ```bash
+   cd pascal-blender-bridge
+   zip -r pascal_blender_bridge.zip pascal_blender_bridge/
+   ```
+3. In Blender, go to **Edit → Preferences → Add-ons**
+4. Click **Install** and select `pascal_blender_bridge.zip`
+5. Enable "Pascal Blender Bridge"
+
+### Development Setup
+For development, symlink the addon folder to Blender's addons directory:
+```bash
+# Linux/macOS
+ln -s /path/to/pascal-blender-bridge/pascal_blender_bridge ~/.config/blender/4.2/scripts/addons/
+
+# Windows (run as admin)
+mklink /D "%APPDATA%\Blender Foundation\Blender\4.2\scripts\addons\pascal_blender_bridge" "C:\path\to\pascal_blender_bridge"
+```
 
 ## Usage
 
@@ -69,25 +91,32 @@ This addon makes that workflow seamless.
 
 ### Object Mapping
 
-| Blender | Pascal Node Type |
-|---------|------------------|
-| Collection | Level |
-| Cube (tagged) | Wall |
-| Empty | Room container |
-| Mesh objects | Item nodes |
+| Blender Object | Pascal Node Type | Detection |
+|----------------|------------------|-----------|
+| Collection | Level | Name contains "level" or "floor" |
+| Cube mesh | Wall | Name contains "wall" or `pascal_type: WALL` |
+| Cube mesh | Door | Name contains "door" or `pascal_type: DOOR` |
+| Cube mesh | Window | Name contains "window" or `pascal_type: WINDOW` |
+| Cylinder mesh | Column | Name contains "column" or `pascal_type: COLUMN` |
+| Plane mesh | Slab/Ceiling/Roof | Based on name or pascal_type |
+| Empty | Group | `pascal_type: GROUP` |
+| Any mesh | Item | Default for unmatched meshes |
+
+### Custom Properties
+
+Select an object and open the **Pascal Properties** panel to set:
+- **Pascal Type**: Override auto-detection
+- **Pascal ID**: Preserved during round-trips
+- **Attach To**: For items (floor, wall, wall-side, ceiling)
+- **Materials**: Front/back material for walls
+- **Model URL**: GLB model path for items
 
 ## Configuration
 
-The addon stores settings in a `.pascal-bridge.json` file in your project:
-
-```json
-{
-  "pascalEndpoint": "http://localhost:3000",
-  "autoSync": false,
-  "exportPath": "./scenes",
-  "catalogPath": "./catalog"
-}
-```
+Settings are stored in the scene via the N-panel:
+- **Export Path**: Directory for exported JSON files
+- **File Name**: Name of the export file
+- **Default Wall Height/Thickness**: For new walls
 
 ## Roadmap
 
@@ -101,8 +130,7 @@ The addon stores settings in a `.pascal-bridge.json` file in your project:
 
 ## Acknowledgments
 
-- Inspired by [LvlExporter](https://superhivemarket.com/products/lvl-exporter) — a Blender addon for exporting scene data to JSON/XML for code-focused 3D frameworks
-- Built for [Pascal](https://github.com/wawa-sensei/pascal) by [@wawasensei](https://twitter.com/waaborern)
+- Built for [Pascal](https://github.com/wawa-sensei/pascal) 
 
 ## Contributing
 

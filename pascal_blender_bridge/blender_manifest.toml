@@ -1,0 +1,23 @@
+schema_version = "1.0.0"
+
+id = "pascal_blender_bridge"
+name = "Pascal Blender Bridge"
+version = "0.1.0"
+tagline = "Two-way sync between Blender and Pascal scene editor"
+maintainer = "Community"
+type = "add-on"
+
+# Blender version requirements
+blender_version_min = "4.2.0"
+
+# License
+license = ["SPDX:MIT"]
+
+# Website/documentation
+website = "https://github.com/wawa-sensei/pascal"
+
+# Tags for discoverability
+tags = ["Import-Export", "Scene", "3D View"]
+
+# No external wheels needed - pure Python
+# wheels = []
